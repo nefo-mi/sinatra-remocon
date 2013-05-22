@@ -6,3 +6,6 @@
 
 # See also
 - [mgwsuzuki/monobu1](https://github.com/mgwsuzuki/monobu1)
+
+# License
+GPLv2
