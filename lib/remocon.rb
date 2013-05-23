@@ -2,20 +2,9 @@
 require 'serialport'
 
 class Remocon
-  def initialize
+  def initialize( port, baudrate, databit, stopbit, paritycheck )
     #環境にあわせて指定する。
-    serial_port = '/dev/tty.usbmodem1421' 
-    serlal_baudrate = 9600
-    serial_databit = 8
-    serial_stopbit = 1
-    serial_paritycheck = SerialPort::NONE
-
-    @sp = SerialPort.new(serial_port,
-                        serlal_baudrate ,
-                        serial_databit,
-                        serial_stopbit,
-                        serial_paritycheck)
-
+    @sp = SerialPort.new(port, baudrate, databit, stopbit, paritycheck)
     @sp.read_timeout = 1000
 
     #COMPORT接続後数秒はコマンドを受け付けないからsleepする

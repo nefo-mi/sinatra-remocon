@@ -6,7 +6,16 @@ require 'haml'
 
 require 'lib/remocon'
 
-remo = Remocon.new
+config_path = File.expand_path(File.dirname(__FILE__) + '/config.yml')
+config = YAML.load_file(config_path)
+
+remo = Remocon.new (
+  config[:serial_port], 
+  config[:serial_baudrate], 
+  config[:serial_databit], 
+  config[:serial_stopbit], 
+  SerialPort::NONE
+)
 
 get '/' do
   haml :index
