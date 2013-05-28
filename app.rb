@@ -19,10 +19,16 @@ remo = Remocon.new(
 )
 
 get '/' do
+  @url = request.host + (request.port == 80 ? '' : ":#{request.port.to_s}")
+  @signals = remo.signals
   haml :index
 end
 
-get '/pon' do
-  remo.turnon
-  haml :index
+post '/' do
+  signal = params[:signal]
+  if ( remo.send_signal( signal ))
+    "send " + signal
+  else
+    signal + " not found"
+  end
 end

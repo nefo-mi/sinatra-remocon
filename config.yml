@@ -1,4 +1,4 @@
-:serial_port: /dev/tty.usbmodem1411
+:serial_port: /dev/tty.usbmodem1421
 :serial_baudrate: 9600
 :serial_databit: 8
 :serial_stopbit: 1

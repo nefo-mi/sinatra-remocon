@@ -6,4 +6,11 @@
   %body
     %h1 sinatra-remocon
     %p
-      access /pon
+      curl -d 'signal=signal' '#{@url}'
+    %h2 signals
+    %table
+      %tr
+        - @signals.each do |signal|
+          %td= signal
+    %p
+      oh yeah!
