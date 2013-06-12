@@ -8,9 +8,14 @@
     %p
       curl -d 'signal=signal' '#{@url}'
     %h2 signals
+    %p
+      = @ua
     %table
       %tr
         - @signals.each do |signal|
-          %td= signal
+          %td
+            %form{ action: "/", method: "post"}
+              %input{ type: "hidden", name: "signal", value: "#{signal}" }
+              %input{ type: "submit", value: "#{signal}" }
     %p
       oh yeah!

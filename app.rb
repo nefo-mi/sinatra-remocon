@@ -18,17 +18,34 @@ remo = Remocon.new(
   SerialPort::NONE
 )
 
+get '/', agent: %r{curl} do
+  uri = request.host + (request.port == 80 ? '' : ":#{request.port.to_s}") 
+  signals = remo.signals
+<<EOL
+  curl -d 'signal=signal' #{uri} 
+  signals -> #{signals}
+EOL
+end
+
 get '/' do
   @url = request.host + (request.port == 80 ? '' : ":#{request.port.to_s}")
   @signals = remo.signals
   haml :index
 end
 
-post '/' do
+post '/', agent: %r{curl} do
   signal = params[:signal]
   if ( remo.send_signal( signal ))
     "send " + signal
   else
     signal + " not found"
   end
+end
+
+post '/' do
+  signal = params[:signal]
+  remo.send_signal( signal )
+  @url = request.host + (request.port == 80 ? '' : ":#{request.port.to_s}")
+  @signals = remo.signals
+  haml :index
 end
