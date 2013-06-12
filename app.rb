@@ -22,7 +22,7 @@ end
 
 get '/', agent: %r{curl} do
   uri = request.host + (request.port == 80 ? '' : ":#{request.port.to_s}") 
-  signals = remo.signals
+  signals = $remo.signals
 <<EOL
   curl -d 'signal=signal' #{uri} 
   signals -> #{signals}
@@ -46,8 +46,8 @@ end
 
 post '/' do
   signal = params[:signal]
-  remo.send_signal( signal )
+  $remo.send_signal( signal )
   @url = request.host + (request.port == 80 ? '' : ":#{request.port.to_s}")
-  @signals = remo.signals
+  @signals = $remo.signals
   haml :index
 end
